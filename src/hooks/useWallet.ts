@@ -25,6 +25,10 @@ const useWallet = (rpcUrl: string) => {
     }
   };
 
+  /**
+   *
+   * query to get currently connected accounts
+   */
   const getConnectedAccounts = async () => {
     if (!isWalletAvailable()) return;
 
@@ -34,6 +38,9 @@ const useWallet = (rpcUrl: string) => {
     setAddress(accounts[0]);
   };
 
+  /**
+   * handle change if user changes account from metamask app
+   */
   React.useEffect(() => {
     if (isWalletAvailable()) {
       getConnectedAccounts();
@@ -44,6 +51,9 @@ const useWallet = (rpcUrl: string) => {
     };
   }, []);
 
+  /**
+   * try connect metamask and get accounts
+   */
   const getAccounts = async () => {
     if (!isWalletAvailable()) {
       setError("MetaMask Wallet not present. Please install and retry");
@@ -63,6 +73,9 @@ const useWallet = (rpcUrl: string) => {
     }
   };
 
+  /**
+   * getChainId and balance of the wallet
+   */
   const getWalletInfo = async () => {
     if (!isWalletAvailable()) return;
     try {
@@ -75,9 +88,11 @@ const useWallet = (rpcUrl: string) => {
       setError(`Something went wrong ${e}`);
     }
   };
+
   const disconnect = () => {
     //todo implement
   };
+
   return {
     getAccounts,
     getWalletInfo,

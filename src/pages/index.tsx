@@ -41,7 +41,7 @@ export default function Wallet() {
     error,
     getWalletInfo,
   } = useWallet(WALLET_RPC_URL as string);
-  console.log(error);
+
   React.useEffect(() => {
     if (address) {
       getWalletInfo();
