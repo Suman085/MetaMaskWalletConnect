@@ -44,7 +44,10 @@ const useWallet = () => {
   }, []);
 
   const getAccounts = async () => {
-    if (!isWalletAvailable()) return;
+    if (!isWalletAvailable()) {
+      setError("MetaMask Wallet not present. Please install and retry");
+      return;
+    }
     try {
       const accounts: string[] = (await window.ethereum?.request({
         method: "eth_requestAccounts",

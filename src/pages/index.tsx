@@ -39,7 +39,7 @@ export default function Wallet() {
     error,
     getWalletInfo,
   } = useWallet();
-
+  console.log(error);
   React.useEffect(() => {
     if (address) {
       getWalletInfo();
@@ -105,7 +105,7 @@ export default function Wallet() {
         </Table>
       </TableContainer>
       {error && (
-        <Alert status="error">
+        <Alert status="error" w="50%">
           <AlertIcon />
           <Box>
             <AlertTitle>Error!</AlertTitle>
@@ -114,7 +114,7 @@ export default function Wallet() {
         </Alert>
       )}
       {!isWalletConnected() ? (
-        <VStack spacing={"1rem"}>
+        <VStack spacing={"1rem"} w="50%">
           <Alert status="warning">
             <AlertIcon />
             <Box>
