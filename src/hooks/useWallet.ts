@@ -2,7 +2,8 @@ import React from "react";
 import { isWalletAvailable } from "../utils";
 import { ethers } from "ethers";
 
-const useWallet = () => {
+const useWallet = (rpcUrl: string) => {
+  if (!rpcUrl) throw "Provide rpc url";
   const [address, setAddress] = React.useState("");
   const [chainId, setChainId] = React.useState("");
   const [balance, setBalance] = React.useState("");
@@ -65,15 +66,13 @@ const useWallet = () => {
   const getWalletInfo = async () => {
     if (!isWalletAvailable()) return;
     try {
-      const provider = new ethers.JsonRpcProvider(
-        "https://data-seed-prebsc-1-s1.binance.org:8545"
-      );
+      const provider = new ethers.JsonRpcProvider(rpcUrl);
       const { chainId } = await provider.getNetwork();
       const balance = await provider.getBalance(address);
       setChainId(chainId.toString());
       setBalance(ethers.formatEther(balance));
     } catch (e) {
-      console.log(e);
+      setError(`Something went wrong ${e}`);
     }
   };
   const disconnect = () => {

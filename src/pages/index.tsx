@@ -26,6 +26,8 @@ import {
 } from "@chakra-ui/react";
 import useWallet from "@/hooks/useWallet";
 
+export const WALLET_RPC_URL = process.env.NEXT_PUBLIC_RPC_URL;
+
 export default function Wallet() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef<HTMLButtonElement>(null);
@@ -38,7 +40,7 @@ export default function Wallet() {
     balance,
     error,
     getWalletInfo,
-  } = useWallet();
+  } = useWallet(WALLET_RPC_URL as string);
   console.log(error);
   React.useEffect(() => {
     if (address) {
