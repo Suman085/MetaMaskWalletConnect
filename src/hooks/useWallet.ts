@@ -8,7 +8,7 @@ const useWallet = (rpcUrl: string) => {
   const [chainId, setChainId] = React.useState("");
   const [balance, setBalance] = React.useState("");
   const [error, setError] = React.useState("");
-
+  const [initialized, setInitialized] = React.useState(false);
   const isWalletConnected = () => {
     return Boolean(address);
   };
@@ -36,6 +36,7 @@ const useWallet = (rpcUrl: string) => {
       method: "eth_accounts",
     })) as string[];
     setAddress(accounts[0]);
+    setInitialized(true);
   };
 
   /**
@@ -70,6 +71,8 @@ const useWallet = (rpcUrl: string) => {
       }
     } catch (e) {
       setError(`Something went wrong ${e}`);
+    } finally {
+      setInitialized(true);
     }
   };
 
@@ -97,6 +100,7 @@ const useWallet = (rpcUrl: string) => {
     getAccounts,
     getWalletInfo,
     disconnect,
+    initialized,
     address,
     chainId,
     balance,

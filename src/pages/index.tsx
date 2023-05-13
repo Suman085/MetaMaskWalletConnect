@@ -39,6 +39,7 @@ export default function Wallet() {
     chainId,
     balance,
     error,
+    initialized,
     getWalletInfo,
   } = useWallet(WALLET_RPC_URL as string);
 
@@ -51,6 +52,7 @@ export default function Wallet() {
   const disconnect = () => {
     onOpen();
   };
+  console.log(initialized);
   return (
     <VStack>
       <AlertDialog
@@ -115,12 +117,12 @@ export default function Wallet() {
           </Box>
         </Alert>
       )}
-      {!isWalletConnected() ? (
+      {!isWalletConnected() && initialized ? (
         <VStack spacing={"1rem"} w="50%">
           <Alert status="warning">
             <AlertIcon />
             <Box>
-              <AlertTitle>Info!</AlertTitle>
+              <AlertTitle>MetaMask wallet not connected!</AlertTitle>
               <AlertDescription>
                 You are not connected to your wallet. Click on the button below
                 to connect to your wallet
